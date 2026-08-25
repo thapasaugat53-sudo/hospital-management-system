@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Doctor Appointments</title>
+</head>
+
+<body>
+
+    <h1>Doctor Appointments</h1>
+
+    {% if appointments %}
+
+    <table border="1">
+
+        <tr>
+            <th>Token</th>
+            <th>Patient</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+
+        {% for appointment in appointments %}
+
+        <tr>
+
+            <td>
+                {{ appointment.token_number }}
+            </td>
+
+            <td>
+                {{ appointment.patient.user.username }}
+            </td>
+
+            <td>
+                {{ appointment.appointment_date }}
+            </td>
+
+            <td>
+                {{ appointment.appointment_time }}
+            </td>
+
+            <td>
+                {{ appointment.reason }}
+            </td>
+
+            <td>
+                {{ appointment.status }}
+
+                {% if appointment.status == "PENDING" %}
+                <a href="{% url 'confirm_appointment' appointment.id %}">
+                    Accept
+                </a>
+
+                <a href="{% url 'cancel_appointment' appointment.id %}">
+                    Cancel
+                </a>
+                {% endif %}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No appointments found.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

@@ -29,6 +29,11 @@ class Appointment(models.Model):
 
     appointment_time = models.TimeField()
 
+    token_number = models.PositiveIntegerField(
+    null=True,
+    blank=True
+    )
+
     reason = models.TextField()
 
     status = models.CharField(
