@@ -113,7 +113,7 @@ hospital-management-system/
 ### 1. Clone the Repository
 
 ```bash
-git clone 
+git clone https://github.com/thapasaugat53-sudo/hospital-management-system.git
 ```
 
 Move into the project directory:
