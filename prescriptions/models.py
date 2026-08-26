@@ -1,6 +1,7 @@
 from django.db import models
 from doctors.models import Doctor
 from patients.models import Patient
+from appointments.models import Appointment
 
 
 class Prescription(models.Model):
@@ -17,13 +18,21 @@ class Prescription(models.Model):
         related_name="prescriptions"
     )
 
-    medicine = models.CharField(max_length=200)
+    appointment = models.ForeignKey(
+        Appointment,
+        on_delete=models.CASCADE,
+        related_name="prescriptions",
+        null=True,
+        blank=True
+    )
 
-    dosage = models.CharField(max_length=100)
+    medicine = models.CharField(
+        max_length=200
+    )
 
-    frequency = models.CharField(max_length=100)
-
-    duration = models.CharField(max_length=100)
+    dosage = models.CharField(
+        max_length=100
+    )
 
     instructions = models.TextField(
         blank=True
@@ -34,4 +43,7 @@ class Prescription(models.Model):
     )
 
     def __str__(self):
-        return f"{self.patient} - {self.medicine}"
+        return (
+            f"{self.patient} - "
+            f"{self.medicine}"
+        )

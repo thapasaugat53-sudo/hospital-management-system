@@ -4,18 +4,18 @@ from .models import Prescription
 
 @admin.register(Prescription)
 class PrescriptionAdmin(admin.ModelAdmin):
+
     list_display = (
         "patient",
         "doctor",
+        "appointment",
         "medicine",
         "dosage",
-        "frequency",
-        "duration",
         "created_at",
     )
 
     list_filter = (
-        "frequency",
+        "doctor",
         "created_at",
     )
 

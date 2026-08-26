@@ -1,9 +1,18 @@
 from django.db import models
 from doctors.models import Doctor
 from patients.models import Patient
+from appointments.models import Appointment
 
 
 class MedicalRecord(models.Model):
+
+    appointment = models.OneToOneField(
+        Appointment,
+        on_delete=models.CASCADE,
+        related_name="medical_record",
+        null=True,
+        blank=True
+    )
 
     patient = models.ForeignKey(
         Patient,

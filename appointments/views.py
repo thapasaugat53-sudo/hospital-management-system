@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Max
+
 from .forms import AppointmentForm
 from .models import Appointment
-
 
 @login_required
 def book_appointment(request):
@@ -69,9 +69,12 @@ def doctor_appointments(request):
 @login_required
 def confirm_appointment(request, appointment_id):
 
-    appointment = Appointment.objects.get(id=appointment_id)
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id
+    )
 
-    # Make sure this appointment belongs to the logged-in doctor
+    
     if appointment.doctor.user != request.user:
         return redirect("doctor_appointments")
 
@@ -84,9 +87,12 @@ def confirm_appointment(request, appointment_id):
 @login_required
 def cancel_appointment(request, appointment_id):
 
-    appointment = Appointment.objects.get(id=appointment_id)
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id
+    )
 
-    # Make sure this appointment belongs to the logged-in doctor
+    
     if appointment.doctor.user != request.user:
         return redirect("doctor_appointments")
 

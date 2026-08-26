@@ -50,14 +50,31 @@
                 {{ appointment.status }}
 
                 {% if appointment.status == "PENDING" %}
-                <a href="{% url 'confirm_appointment' appointment.id %}">
-                    Accept
-                </a>
 
-                <a href="{% url 'cancel_appointment' appointment.id %}">
-                    Cancel
-                </a>
+                    <a href="{% url 'confirm_appointment' appointment.id %}">
+                        Confirm
+                    </a>
+
+                    <a href="{% url 'cancel_appointment' appointment.id %}">
+                        Cancel
+                    </a>
+
+                {% elif appointment.status == "CONFIRMED" %}
+
+                    <a href="{% url 'consultation' appointment.id %}">
+                        Start Consultation
+                    </a>
+
+                {% elif appointment.status == "COMPLETED" %}
+
+                    <span>Consultation Completed</span>
+
+                {% elif appointment.status == "CANCELLED" %}
+
+                    <span>Appointment Cancelled</span>
+
                 {% endif %}
+
             </td>
 
         </tr>
@@ -68,7 +85,7 @@
 
     {% else %}
 
-    <p>No appointments found.</p>
+        <p>No appointments found.</p>
 
     {% endif %}
 
