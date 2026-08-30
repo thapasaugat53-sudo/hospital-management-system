@@ -9,5 +9,6 @@ urlpatterns = [
     path(
     "medical-records/",
     include("medical_records.urls")
-),
+    ),
+    path("prescriptions/", include("prescriptions.urls")),
 ]

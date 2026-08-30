@@ -69,6 +69,10 @@
 
                     <span>Consultation Completed</span>
 
+                    <a href="{% url 'create_prescription' appointment.id %}">
+                        Create Prescription
+                    </a>
+
                 {% elif appointment.status == "CANCELLED" %}
 
                     <span>Appointment Cancelled</span>
