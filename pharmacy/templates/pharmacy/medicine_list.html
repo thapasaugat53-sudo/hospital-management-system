@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pharmacy</title>
+</head>
+
+<body>
+
+    <h1>Medicine List</h1>
+
+    <a href="{% url 'add_medicine' %}">
+        Add Medicine
+    </a>
+
+    <br><br>
+
+
+    <!-- LOW STOCK ALERT -->
+
+    {% if low_stock_medicines %}
+
+        <h2>⚠️ Low Stock</h2>
+
+        <ul>
+
+            {% for medicine in low_stock_medicines %}
+
+                <li>
+                    {{ medicine.name }}
+                    — {{ medicine.quantity }} remaining
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    {% endif %}
+
+
+    <!-- EXPIRED MEDICINES -->
+
+    {% if expired_medicines %}
+
+        <h2>❌ Expired Medicines</h2>
+
+        <ul>
+
+            {% for medicine in expired_medicines %}
+
+                <li>
+                    {{ medicine.name }}
+                    — Expired on {{ medicine.expiry_date }}
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    {% endif %}
+
+
+    <!-- EXPIRING SOON -->
+
+    {% if expiring_soon_medicines %}
+
+        <h2>⚠️ Expiring Soon</h2>
+
+        <ul>
+
+            {% for medicine in expiring_soon_medicines %}
+
+                <li>
+                    {{ medicine.name }}
+                    — Expires on {{ medicine.expiry_date }}
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+    {% endif %}
+
+
+    <br>
+
+
+    <!-- MEDICINE TABLE -->
+
+    {% if medicines %}
+
+        <table border="1">
+
+            <tr>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Expiry Date</th>
+                <th>Stock Status</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for medicine in medicines %}
+
+            <tr>
+
+                <td>
+                    {{ medicine.name }}
+                </td>
+
+                <td>
+                    {{ medicine.quantity }}
+                </td>
+
+                <td>
+                    {{ medicine.price }}
+                </td>
+
+                <td>
+                    {{ medicine.expiry_date }}
+                </td>
+
+                <td>
+
+                    {% if medicine.quantity <= medicine.low_stock_threshold %}
+
+                        Low Stock
+
+                    {% else %}
+
+                        Available
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    <a href="{% url 'edit_medicine' medicine.id %}">
+                        Edit
+                    </a>
+
+                    &nbsp;
+
+                    <a href="{% url 'increase_stock' medicine.id %}">
+                        Increase Stock
+                    </a>
+
+                    &nbsp;
+
+                    <a href="{% url 'decrease_stock' medicine.id %}">
+                        Decrease Stock
+                    </a>
+
+                    &nbsp;
+
+                    <a href="{% url 'delete_medicine' medicine.id %}">
+                        Delete
+                    </a>
+
+                    <a href="{% url 'dispense_medicine' medicine.id %}">
+                        Dispense
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>No medicines found.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

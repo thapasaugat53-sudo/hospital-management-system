@@ -22,4 +22,16 @@ urlpatterns = [
         name="enter_lab_result"
     ),
 
+    path(
+        "my-tests/",
+        views.patient_lab_tests,
+        name="patient_lab_tests"
+    ),
+
+    path(
+        "doctor-tests/",
+        views.doctor_lab_tests,
+        name="doctor_lab_tests"
+    ),
+
 ]

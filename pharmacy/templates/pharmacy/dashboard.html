@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pharmacy Dashboard</title>
+</head>
+
+<body>
+
+    <h1>Pharmacy Dashboard</h1>
+
+    <hr>
+
+    <h2>Total Medicines</h2>
+
+    <p>
+        {{ total_medicines }}
+    </p>
+
+    <h2>Low Stock Medicines</h2>
+
+    <p>
+        {{ low_stock_medicines }}
+    </p>
+
+    <h2>Expired Medicines</h2>
+
+    <p>
+        {{ expired_medicines }}
+    </p>
+
+    <h2>Expiring Soon</h2>
+
+    <p>
+        {{ expiring_soon_medicines }}
+    </p>
+
+    <hr>
+
+    <a href="{% url 'medicine_list' %}">
+        View Medicine List
+    </a>
+
+    <br><br>
+
+    <a href="{% url 'add_medicine' %}">
+        Add Medicine
+    </a>
+
+</body>
+
+</html>

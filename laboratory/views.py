@@ -98,3 +98,35 @@ def enter_lab_result(request, test_id):
             "lab_test": lab_test,
         }
     )
+
+@login_required
+def patient_lab_tests(request):
+
+    tests = LabTest.objects.filter(
+        patient=request.user.patient
+    ).select_related(
+        "doctor__user",
+        "appointment"
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "laboratory/patient_lab_tests.html",
+        {"tests": tests}
+    )
+
+@login_required
+def doctor_lab_tests(request):
+
+    tests = LabTest.objects.filter(
+        doctor=request.user.doctor
+    ).select_related(
+        "patient__user",
+        "appointment"
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "laboratory/doctor_lab_tests.html",
+        {"tests": tests}
+    )
