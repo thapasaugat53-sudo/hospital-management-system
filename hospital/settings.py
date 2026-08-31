@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "appointments",
     "prescriptions",
     "medical_records",
+    "laboratory",
 ]
 
 MIDDLEWARE = [

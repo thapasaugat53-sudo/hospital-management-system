@@ -11,4 +11,8 @@ urlpatterns = [
     include("medical_records.urls")
     ),
     path("prescriptions/", include("prescriptions.urls")),
+    path(
+    "laboratory/",
+    include("laboratory.urls")
+    ),
 ]
