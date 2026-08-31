@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Laboratory Results</title>
+</head>
+
+<body>
+
+    <h1>Laboratory Results</h1>
+
+    {% if tests %}
+
+    <table border="1">
+
+        <tr>
+            <th>Patient</th>
+            <th>Test</th>
+            <th>Result</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+
+        {% for test in tests %}
+
+        <tr>
+
+            <td>
+                {{ test.patient.user.username }}
+            </td>
+
+            <td>
+                {{ test.test_name }}
+            </td>
+
+            <td>
+                {% if test.status == "COMPLETED" %}
+                    {{ test.result }}
+                {% else %}
+                    Result Pending
+                {% endif %}
+            </td>
+
+            <td>
+                {{ test.status }}
+            </td>
+
+            <td>
+                {{ test.created_at }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+        <p>No laboratory tests found.</p>
+
+    {% endif %}
+
+</body>
+
+</html>
