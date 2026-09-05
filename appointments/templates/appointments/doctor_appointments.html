@@ -81,6 +81,12 @@
                         Request Lab Test
                     </a>
 
+                    <br>
+
+                    <a href="{% url 'create_bill' appointment.id %}">
+                        Create Bill
+                    </a>
+
                 {% elif appointment.status == "CANCELLED" %}
 
                     <span>Appointment Cancelled</span>

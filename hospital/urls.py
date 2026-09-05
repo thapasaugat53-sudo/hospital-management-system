@@ -19,4 +19,5 @@ urlpatterns = [
     "pharmacy/",
     include("pharmacy.urls")
     ),
+    path("billing/", include("billing.urls")),
 ]

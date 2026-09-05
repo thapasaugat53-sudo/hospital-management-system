@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Bills</title>
+</head>
+
+<body>
+
+    <h1>My Bills</h1>
+
+    {% if bills %}
+
+    <table border="1">
+
+        <tr>
+            <th>Bill ID</th>
+            <th>Doctor</th>
+            <th>Appointment</th>
+            <th>Total Amount</th>
+            <th>Payment Status</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        {% for bill in bills %}
+
+        <tr>
+
+            <td>
+                #{{ bill.id }}
+            </td>
+
+            <td>
+                Dr. {{ bill.doctor.user.username }}
+            </td>
+
+            <td>
+                #{{ bill.appointment.id }}
+            </td>
+
+            <td>
+                Rs. {{ bill.total_amount }}
+            </td>
+
+            <td>
+                {{ bill.payment_status }}
+            </td>
+
+            <td>
+                {{ bill.created_at }}
+            </td>
+
+            <td>
+                <a href="{% url 'bill_detail' bill.id %}">
+                    View Invoice
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+        <p>No bills found.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

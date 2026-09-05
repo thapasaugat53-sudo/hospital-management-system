@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bill #{{ bill.id }}</title>
+</head>
+
+<body>
+
+    <h1>Hospital Invoice</h1>
+
+    <hr>
+
+    <p>
+        <strong>Bill ID:</strong>
+        #{{ bill.id }}
+    </p>
+
+    <p>
+        <strong>Patient:</strong>
+        {{ bill.patient.user.username }}
+    </p>
+
+    <p>
+        <strong>Doctor:</strong>
+        Dr. {{ bill.doctor.user.username }}
+    </p>
+
+    <p>
+        <strong>Appointment:</strong>
+        #{{ bill.appointment.id }}
+    </p>
+
+    <hr>
+
+    <h2>Charges</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>Charge</th>
+            <th>Amount</th>
+        </tr>
+
+        <tr>
+            <td>Consultation Fee</td>
+            <td>Rs. {{ bill.consultation_fee }}</td>
+        </tr>
+
+        <tr>
+            <td>Laboratory Charges</td>
+            <td>Rs. {{ bill.lab_charges }}</td>
+        </tr>
+
+        <tr>
+            <td>Medicine Charges</td>
+            <td>Rs. {{ bill.medicine_charges }}</td>
+        </tr>
+
+        <tr>
+            <th>Total</th>
+            <th>Rs. {{ bill.total_amount }}</th>
+        </tr>
+
+    </table>
+
+    <br>
+
+    <p>
+        <strong>Payment Status:</strong>
+        {{ bill.payment_status }}
+    </p>
+
+    <p>
+        <strong>Created:</strong>
+        {{ bill.created_at }}
+    </p>
+
+    <br>
+
+    <a href="{% url 'doctor_appointments' %}">
+        Back to Appointments
+    </a>
+
+</body>
+
+</html>
