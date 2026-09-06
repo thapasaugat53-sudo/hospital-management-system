@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Reports</title>
+</head>
+<body>
+
+<h1>Hospital Management System</h1>
+<h2>Reports</h2>
+
+<hr>
+
+<h3>Patient & Doctor Report</h3>
+<p>Total Patients: {{ total_patients }}</p>
+<p>Total Doctors: {{ total_doctors }}</p>
+
+<hr>
+
+<h3>Appointment Report</h3>
+<p>Total Appointments: {{ total_appointments }}</p>
+<p>Completed Appointments: {{ completed_appointments }}</p>
+<p>Cancelled Appointments: {{ cancelled_appointments }}</p>
+
+<hr>
+
+<h3>Room & Bed Report</h3>
+<p>Total Beds: {{ total_beds }}</p>
+<p>Occupied Beds: {{ occupied_beds }}</p>
+<p>Available Beds: {{ available_beds }}</p>
+
+<hr>
+
+<h3>Billing Report</h3>
+<p>Total Bills: {{ total_bills }}</p>
+<p>Paid Bills: {{ paid_bills }}</p>
+<p>Pending Bills: {{ pending_bills }}</p>
+<p>Total Revenue: {{ total_revenue }}</p>
+
+<hr>
+
+<h3>Pharmacy Report</h3>
+<p>Total Medicines: {{ total_medicines }}</p>
+<p>Low Stock Medicines: {{ low_stock_medicines }}</p>
+
+<hr>
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+
+</body>
+</html>
