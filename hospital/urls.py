@@ -20,4 +20,5 @@ urlpatterns = [
     include("pharmacy.urls")
     ),
     path("billing/", include("billing.urls")),
+    path("rooms/", include("rooms.urls")),
 ]
