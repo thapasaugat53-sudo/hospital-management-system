@@ -100,3 +100,16 @@ def cancel_appointment(request, appointment_id):
     appointment.save()
 
     return redirect("doctor_appointments")
+
+@login_required
+def appointment_list(request):
+    appointments = Appointment.objects.all().order_by(
+        "appointment_date",
+        "appointment_time"
+    )
+
+    return render(
+        request,
+        "appointments/appointment_list.html",
+        {"appointments": appointments}
+    )

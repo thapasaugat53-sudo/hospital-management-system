@@ -1,3 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from .models import Patient
 
-# Create your views here.
+
+@login_required
+def patient_list(request):
+    patients = Patient.objects.all()
+    return render(
+        request,
+        "patients/patient_list.html",
+        {"patients": patients}
+    )

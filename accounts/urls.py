@@ -20,6 +20,12 @@ urlpatterns = [
     ),
 
     path(
+        "dashboard/receptionist/",
+        views.receptionist_dashboard,
+        name="receptionist_dashboard"
+    ),
+
+    path(
         "dashboard/patient/",
         views.patient_dashboard,
         name="patient_dashboard"

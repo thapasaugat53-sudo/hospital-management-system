@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-
+from .forms import RegistrationForm
 from patients.models import Patient
 from doctors.models import Doctor
 from appointments.models import Appointment
@@ -10,6 +10,12 @@ from billing.models import Bill
 from pharmacy.models import Medicine
 from django.db import models
 from django.utils import timezone
+from .decorators import (
+    doctor_required,
+    patient_required,
+    admin_required,
+    receptionist_required,
+)
 
 def register(request):
     if request.method == "POST":
@@ -54,10 +60,12 @@ def user_login(request):
             elif role == "DOCTOR":
                 return redirect("doctor_dashboard")
 
+            elif role == "RECEPTIONIST":
+                return redirect("receptionist_dashboard")
+
             elif role == "PATIENT":
                 return redirect("patient_dashboard")
-
-            return redirect("dashboard")
+                
 
         return render(
             request,
@@ -73,28 +81,31 @@ def user_logout(request):
 
 @login_required
 def admin_dashboard(request):
-    return render(
-        request,
-        "accounts/admin_dashboard.html"
-    )
+    return redirect("dashboard")
 
 
-@login_required
+@doctor_required
 def doctor_dashboard(request):
     return render(
         request,
         "accounts/doctor_dashboard.html"
     )
 
+@receptionist_required
+def receptionist_dashboard(request):
+    return render(
+        request,
+        "accounts/receptionist_dashboard.html"
+    )
 
-@login_required
+@patient_required
 def patient_dashboard(request):
     return render(
         request,
         "accounts/patient_dashboard.html"
     )
 
-@login_required
+@admin_required
 def dashboard(request):
     total_patients = Patient.objects.count()
     total_doctors = Doctor.objects.count()
@@ -137,7 +148,7 @@ def dashboard(request):
         }
     )
 
-@login_required
+@admin_required
 def reports(request):
     total_patients = Patient.objects.count()
     total_doctors = Doctor.objects.count()
