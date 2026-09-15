@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Appointments</title>
+</head>
+
+<body>
+
+    <h1>My Appointments</h1>
+
+    <a href="{% url 'book_appointment' %}">
+        Book New Appointment
+    </a>
+
+    <br><br>
+
+    {% if appointments %}
+
+        <table border="1">
+
+            <tr>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Token</th>
+            </tr>
+
+            {% for appointment in appointments %}
+
+            <tr>
+
+                <td>
+                    Dr. {{ appointment.doctor.user.username }}
+                </td>
+
+                <td>
+                    {{ appointment.appointment_date }}
+                </td>
+
+                <td>
+                    {{ appointment.appointment_time }}
+                </td>
+
+                <td>
+                    {{ appointment.reason }}
+                </td>
+
+                <td>
+                    {{ appointment.status }}
+                </td>
+
+                <td>
+                    {{ appointment.token_number }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>You don't have any appointments yet.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

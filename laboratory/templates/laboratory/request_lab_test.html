@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Request Lab Test</title>
+</head>
+
+<body>
+
+    <h1>Request Lab Test</h1>
+
+    <p>
+        Patient:
+        {{ appointment.patient.user.username }}
+    </p>
+
+    <p>
+        Appointment:
+        {{ appointment.id }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Request Lab Test
+        </button>
+
+    </form>
+
+    <a href="{% url 'doctor_appointments' %}">
+        Back to Appointments
+    </a>
+
+</body>
+
+</html>

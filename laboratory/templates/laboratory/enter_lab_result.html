@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Enter Lab Result</title>
+</head>
+
+<body>
+
+    <h1>Enter Laboratory Result</h1>
+
+    <p>
+        <strong>Patient:</strong>
+        {{ lab_test.patient.user.username }}
+    </p>
+
+    <p>
+        <strong>Doctor:</strong>
+        Dr. {{ lab_test.doctor.user.username }}
+    </p>
+
+    <p>
+        <strong>Test:</strong>
+        {{ lab_test.test_name }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Complete Test
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'lab_tests' %}">
+        Back to Laboratory Tests
+    </a>
+
+</body>
+
+</html>

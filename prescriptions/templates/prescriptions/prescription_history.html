@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prescription History</title>
+</head>
+
+<body>
+
+    <h1>Prescription History</h1>
+
+    {% if prescriptions %}
+
+    <table border="1">
+
+        <tr>
+            <th>Doctor</th>
+            <th>Medicine</th>
+            <th>Dosage</th>
+            <th>Instructions</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        {% for prescription in prescriptions %}
+
+        <tr>
+
+            <td>
+                Dr. {{ prescription.doctor.user.username }}
+            </td>
+
+            <td>
+                {{ prescription.medicine }}
+            </td>
+
+            <td>
+                {{ prescription.dosage }}
+            </td>
+
+            <td>
+                {{ prescription.instructions }}
+            </td>
+
+            <td>
+                {{ prescription.created_at }}
+            </td>
+
+            <td>
+                <a href="{% url 'print_prescription' prescription.id %}">
+                    Print Prescription
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No prescriptions found.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

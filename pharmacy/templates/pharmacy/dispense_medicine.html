@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dispense Medicine</title>
+</head>
+
+<body>
+
+    <h1>Dispense Medicine</h1>
+
+    <h2>{{ medicine.name }}</h2>
+
+    <p>
+        Available Stock:
+        {{ medicine.quantity }}
+    </p>
+
+    <p>
+        Price per unit:
+        {{ medicine.price }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Dispense Medicine
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'medicine_list' %}">
+        Back to Medicine List
+    </a>
+
+</body>
+
+</html>
