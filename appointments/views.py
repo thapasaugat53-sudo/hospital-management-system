@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Max
-
+from accounts.decorators import doctor_required
 from .forms import AppointmentForm
 from .models import Appointment
+from accounts.decorators import receptionist_required
+
 
 @login_required
 def book_appointment(request):
@@ -39,10 +41,15 @@ def book_appointment(request):
         "appointments/book_appointment.html",
         {"form": form}
     )
-@login_required
-def my_appointments(request):
+from accounts.decorators import patient_required
 
-    appointments = request.user.patient.appointments.all()
+
+@patient_required
+def my_appointments(request):
+    appointments = request.user.patient.appointments.all().order_by(
+        "appointment_date",
+        "appointment_time"
+    )
 
     return render(
         request,
@@ -50,15 +57,11 @@ def my_appointments(request):
         {"appointments": appointments}
     )
 
-@login_required
+@doctor_required
 def doctor_appointments(request):
-
     appointments = request.user.doctor.appointments.select_related(
         "patient__user"
-    ).order_by(
-        "appointment_date",
-        "appointment_time"
-    )
+    ).order_by("appointment_date", "appointment_time")
 
     return render(
         request,
@@ -66,7 +69,7 @@ def doctor_appointments(request):
         {"appointments": appointments}
     )
 
-@login_required
+@doctor_required
 def confirm_appointment(request, appointment_id):
 
     appointment = get_object_or_404(
@@ -84,7 +87,7 @@ def confirm_appointment(request, appointment_id):
     return redirect("doctor_appointments")
 
 
-@login_required
+@doctor_required
 def cancel_appointment(request, appointment_id):
 
     appointment = get_object_or_404(
@@ -101,7 +104,7 @@ def cancel_appointment(request, appointment_id):
 
     return redirect("doctor_appointments")
 
-@login_required
+@receptionist_required
 def appointment_list(request):
     appointments = Appointment.objects.all().order_by(
         "appointment_date",

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-
+from accounts.decorators import patient_required
 from appointments.models import Appointment
 from .forms import BillForm
 from .models import Bill
@@ -59,7 +59,7 @@ def bill_detail(request, bill_id):
         }
     )
 
-@login_required
+@patient_required
 def patient_bills(request):
 
     bills = Bill.objects.filter(

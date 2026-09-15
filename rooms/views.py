@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
+from accounts.decorators import receptionist_required
 from .models import Room, Bed
 from django.shortcuts import get_object_or_404
 from .forms import AdmissionForm
 
 
-@login_required
+@receptionist_required
 def room_list(request):
     rooms = Room.objects.all().prefetch_related("beds")
 
@@ -31,7 +31,7 @@ def room_list(request):
     )
 
 
-@login_required
+@receptionist_required
 def bed_list(request):
     beds = Bed.objects.all().select_related(
         "room",
@@ -44,7 +44,7 @@ def bed_list(request):
         {"beds": beds}
     )
 
-@login_required
+@receptionist_required
 def admit_patient(request):
     if request.method == "POST":
         form = AdmissionForm(request.POST)
@@ -71,7 +71,7 @@ def admit_patient(request):
         {"form": form}
     )
 
-@login_required
+@receptionist_required
 def discharge_patient(request, bed_id):
     bed = get_object_or_404(Bed, id=bed_id)
 
