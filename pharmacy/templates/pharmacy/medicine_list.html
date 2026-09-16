@@ -154,9 +154,10 @@
 
                     &nbsp;
 
-                    <a href="{% url 'delete_medicine' medicine.id %}">
-                        Delete
-                    </a>
+                    <form method="post" action="{% url 'delete_medicine' medicine.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
 
                     <a href="{% url 'dispense_medicine' medicine.id %}">
                         Dispense

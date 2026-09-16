@@ -5,10 +5,12 @@ from django.utils import timezone
 from datetime import timedelta
 from .models import Medicine, MedicineSale
 from .forms import MedicineForm, StockForm, MedicineSaleForm
+from django.shortcuts import get_object_or_404, redirect
+from accounts.decorators import receptionist_required
 
-
-@login_required
+@receptionist_required
 def medicine_list(request):
+
 
     medicines = Medicine.objects.all().order_by("name")
 
@@ -19,8 +21,9 @@ def medicine_list(request):
     )
 
 
-@login_required
+@receptionist_required
 def add_medicine(request):
+
 
     if request.method == "POST":
 
@@ -40,7 +43,7 @@ def add_medicine(request):
         {"form": form}
     )
 
-@login_required
+@receptionist_required
 def edit_medicine(request, medicine_id):
 
     medicine = Medicine.objects.get(id=medicine_id)
@@ -67,24 +70,18 @@ def edit_medicine(request, medicine_id):
     )
 
 
-@login_required
+@receptionist_required
 def delete_medicine(request, medicine_id):
-
-    medicine = Medicine.objects.get(id=medicine_id)
+    medicine = get_object_or_404(Medicine, id=medicine_id)
 
     if request.method == "POST":
         medicine.delete()
-
         return redirect("medicine_list")
 
-    return render(
-        request,
-        "pharmacy/delete_medicine.html",
-        {"medicine": medicine}
-    )
+    return redirect("medicine_list")
 
-@login_required
-def medicine_list(request):
+@receptionist_required
+def pharmacy_dashboard(request):
 
     medicines = Medicine.objects.all().order_by("name")
 
@@ -149,7 +146,7 @@ def pharmacy_dashboard(request):
         }
     )
 
-@login_required
+@receptionist_required
 def increase_stock(request, medicine_id):
 
     medicine = Medicine.objects.get(id=medicine_id)
@@ -180,7 +177,7 @@ def increase_stock(request, medicine_id):
         }
     )
 
-@login_required
+@receptionist_required
 def decrease_stock(request, medicine_id):
 
     medicine = Medicine.objects.get(id=medicine_id)
@@ -218,9 +215,8 @@ def decrease_stock(request, medicine_id):
         }
     )
 
-@login_required
+@receptionist_required
 def dispense_medicine(request, medicine_id):
-
     medicine = Medicine.objects.get(id=medicine_id)
 
     if request.method == "POST":
