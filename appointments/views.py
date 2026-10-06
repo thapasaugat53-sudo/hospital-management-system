@@ -4,8 +4,9 @@ from django.db.models import Max
 from accounts.decorators import doctor_required
 from .forms import AppointmentForm
 from .models import Appointment
-from accounts.decorators import receptionist_required
-
+from accounts.decorators import receptionist_required, patient_required
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 @login_required
 def book_appointment(request):
@@ -16,22 +17,79 @@ def book_appointment(request):
         if form.is_valid():
 
             appointment = form.save(commit=False)
-
             appointment.patient = request.user.patient
 
-            last_token = Appointment.objects.filter(
-                appointment_date=appointment.appointment_date
-            ).aggregate(
-                Max("token_number")
-            )["token_number__max"]
-
-            appointment.token_number = (
-                1 if last_token is None else last_token + 1
+            # Combine appointment date and time
+            appointment_datetime = timezone.make_aware(
+                datetime.combine(
+                    appointment.appointment_date,
+                    appointment.appointment_time
+                )
             )
 
-            appointment.save()
+            
+            if appointment_datetime <= timezone.now():
 
-            return redirect("my_appointments")
+                form.add_error(
+                    None,
+                    "You cannot book an appointment in the past. "
+                    "Please choose a future date and time."
+                )
+
+            else:
+
+                
+                new_start = appointment_datetime
+
+                
+                existing_appointments = Appointment.objects.filter(
+                    doctor=appointment.doctor,
+                    appointment_date=appointment.appointment_date,
+                    status__in=["PENDING", "CONFIRMED"]
+                )
+
+                conflict = False
+
+                for existing in existing_appointments:
+
+                    existing_start = timezone.make_aware(
+                        datetime.combine(
+                            existing.appointment_date,
+                            existing.appointment_time
+                        )
+                    )
+
+                    time_difference = abs(
+                        new_start - existing_start
+                    )
+
+                    if time_difference < timedelta(minutes=45):
+                        conflict = True
+                        break
+
+                if conflict:
+
+                    form.add_error(
+                        None,
+                        "This doctor is already booked around this time. "
+                        "There must be at least 45 minutes between appointments."
+                    )
+
+                else:
+
+                    last_token = Appointment.objects.filter(
+                        appointment_date=appointment.appointment_date
+                    ).aggregate(
+                        Max("token_number")
+                    )["token_number__max"]
+
+                    appointment.token_number = (
+                        1 if last_token is None else last_token + 1
+                    )
+
+                    appointment.save()
+
+                    return redirect("my_appointments")
 
     else:
         form = AppointmentForm()
@@ -41,8 +99,6 @@ def book_appointment(request):
         "appointments/book_appointment.html",
         {"form": form}
     )
-from accounts.decorators import patient_required
-
 
 @patient_required
 def my_appointments(request):

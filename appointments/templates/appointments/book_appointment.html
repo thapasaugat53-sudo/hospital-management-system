@@ -15,6 +15,12 @@
 
         {% csrf_token %}
 
+        {% if form.non_field_errors %}
+            <div style="color: red; margin-bottom: 15px;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
         {{ form.as_p }}
 
         <button type="submit">
