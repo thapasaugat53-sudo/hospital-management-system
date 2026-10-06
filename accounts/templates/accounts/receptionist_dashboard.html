@@ -1,30 +1,53 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Receptionist Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Hospital Management System</h1>
-<h2>Receptionist Dashboard</h2>
+{% block title %}Receptionist Dashboard{% endblock %}
 
-<hr>
+{% block content %}
 
-<h3>Quick Links</h3>
+<h1>Receptionist Dashboard</h1>
 
-<a href="{% url 'patient_list' %}">Patients</a>
-<br><br>
+<div class="card-container">
 
-<a href="{% url 'appointment_list' %}">Appointments</a>
-<br><br>
+    <div class="card">
+        <h3>Patients</h3>
+        <p>View and manage registered patients.</p>
+        <a href="{% url 'patient_list' %}" class="btn">
+            View Patients
+        </a>
+    </div>
 
-<a href="{% url 'bed_list' %}">Beds</a>
-<br><br>
+    <div class="card">
+        <h3>Appointments</h3>
+        <p>View and manage hospital appointments.</p>
+        <a href="{% url 'appointment_list' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
 
-<a href="{% url 'room_list' %}">Rooms</a>
-<br><br>
+    <div class="card">
+        <h3>Rooms</h3>
+        <p>Check room and bed availability.</p>
+        <a href="{% url 'room_list' %}" class="btn">
+            View Rooms
+        </a>
+    </div>
 
-<a href="{% url 'login' %}">Logout</a>
+    <div class="card">
+        <h3>Beds</h3>
+        <p>Manage patient bed allocation.</p>
+        <a href="{% url 'bed_list' %}" class="btn">
+            View Beds
+        </a>
+    </div>
 
-</body>
-</html>
+    <div class="card">
+        <h3>Pharmacy</h3>
+        <p>Manage medicines and stock.</p>
+        <a href="{% url 'medicine_list' %}" class="btn">
+            Open Pharmacy
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

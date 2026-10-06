@@ -22,4 +22,10 @@ urlpatterns = [
         name="patient_bills"
     ),
 
+    path(
+        "list/",
+        views.billing_list,
+        name="billing_list"
+    ),
+
 ]

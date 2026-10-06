@@ -1,33 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Patient Dashboard</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Patient Dashboard{% endblock %}
 
-    <h1>Hospital Management System</h1>
+{% block content %}
 
-    <h2>Patient Dashboard</h2>
+<h1>Patient Dashboard</h1>
 
-    <p>Welcome, {{ user.username }}</p>
+<div class="card-container">
 
-    <p>You have patient access.</p>
+    <div class="card">
+        <h3>My Appointments</h3>
+        <p>View your upcoming and previous appointments.</p>
+        <a href="{% url 'my_appointments' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
 
-    <a href="{% url 'logout' %}">Logout</a>
+    <div class="card">
+        <h3>Medical Records</h3>
+        <p>View your medical history and records.</p>
+    </div>
 
+    <div class="card">
+        <h3>Prescriptions</h3>
+        <p>View your prescribed medicines and instructions.</p>
+    </div>
 
-    <h3>Appointments</h3>
+    <div class="card">
+        <h3>Laboratory</h3>
+        <p>View your laboratory tests and results.</p>
+    </div>
 
-    <a href="{% url 'book_appointment' %}">
-    Book Appointment
-    </a>
+    <div class="card">
+        <h3>Bills</h3>
+        <p>View your hospital bills and payment status.</p>
+    </div>
 
-    <br><br>
+</div>
 
-    <a href="{% url 'my_appointments' %}">
-    My Appointments
-    </a>
-
-</body>
-</html>
+{% endblock %}

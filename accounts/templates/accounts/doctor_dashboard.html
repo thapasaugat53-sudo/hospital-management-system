@@ -1,26 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Doctor Dashboard</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Doctor Dashboard{% endblock %}
 
-    <h1>Hospital Management System</h1>
+{% block content %}
 
-    <h2>Doctor Dashboard</h2>
+<h1>Doctor Dashboard</h1>
 
-    <p>Welcome, Dr. {{ user.username }}</p>
+<div class="card-container">
 
-    <p>You have doctor access.</p>
+    <div class="card">
+        <h3>Appointments</h3>
+        <p>View and manage patient appointments.</p>
+        <a href="{% url 'doctor_appointments' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
 
-    <a href="{% url 'logout' %}">Logout</a>
+    <div class="card">
+        <h3>Medical Records</h3>
+        <p>Manage patient medical records.</p>
+    </div>
 
-    <h3>Appointments</h3>
+    <div class="card">
+        <h3>Prescriptions</h3>
+        <p>Manage patient prescriptions.</p>
+    </div>
 
-    <a href="{% url 'doctor_appointments' %}">
-    View My Appointments
-    </a>
+</div>
 
-</body>
-</html>
+{% endblock %}

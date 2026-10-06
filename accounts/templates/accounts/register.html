@@ -1,24 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Register{% endblock %}
 
-    <h1>Hospital Management System</h1>
+{% block content %}
 
-    <h2>Register</h2>
+<div class="card" style="max-width: 550px; margin: 30px auto;">
+
+    <h1>Create Account</h1>
 
     <form method="POST">
         {% csrf_token %}
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             Register
         </button>
     </form>
- 
-</body>
-</html>
+
+    <p style="margin-top: 20px;">
+        Already have an account?
+        <a href="{% url 'login' %}">Login here</a>
+    </p>
+
+</div>
+
+{% endblock %}

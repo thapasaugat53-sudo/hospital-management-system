@@ -1,39 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Login{% endblock %}
 
-    <h1>Hospital Management System</h1>
+{% block content %}
 
-    <h2>Login</h2>
+<div class="card" style="max-width: 450px; margin: 50px auto;">
 
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
+    <h1>Login</h1>
 
     <form method="POST">
         {% csrf_token %}
 
-        <label>Username:</label>
+        <label>Username</label>
         <input type="text" name="username" required>
 
-        <br><br>
-
-        <label>Password:</label>
+        <label>Password</label>
         <input type="password" name="password" required>
 
-        <br><br>
+        <button type="submit" class="btn">
+            Login
+        </button>
 
-        <button type="submit">Login</button>
     </form>
 
-    <p>
+    <p style="margin-top: 20px;">
         Don't have an account?
-        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'register' %}">Register here</a>
     </p>
 
-</body>
-</html>
+</div>
+
+{% endblock %}

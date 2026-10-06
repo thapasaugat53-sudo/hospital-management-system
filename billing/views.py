@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.decorators import patient_required
+from accounts.decorators import patient_required, admin_required
 from appointments.models import Appointment
 from .forms import BillForm
 from .models import Bill
@@ -72,6 +72,24 @@ def patient_bills(request):
     return render(
         request,
         "billing/patient_bills.html",
+        {
+            "bills": bills,
+        }
+    )
+
+
+@admin_required
+def billing_list(request):
+
+    bills = Bill.objects.select_related(
+        "patient",
+        "doctor__user",
+        "appointment"
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "billing/billing_list.html",
         {
             "bills": bills,
         }

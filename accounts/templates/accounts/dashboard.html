@@ -1,51 +1,85 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hospital Dashboard</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Hospital Management System</h1>
-<h2>Dashboard</h2>
+{% block title %}Admin Dashboard{% endblock %}
 
-<hr>
+{% block content %}
 
-<h3>Patients</h3>
-<p>Total Patients: {{ total_patients }}</p>
+<h1>Admin Dashboard</h1>
 
-<h3>Doctors</h3>
-<p>Total Doctors: {{ total_doctors }}</p>
+<div class="card-container">
 
-<h3>Appointments</h3>
-<p>Today's Appointments: {{ today_appointments }}</p>
+    <div class="card">
+        <h3>Total Patients</h3>
+        <p>{{ total_patients }}</p>
 
-<h3>Rooms & Beds</h3>
-<p>Total Beds: {{ total_beds }}</p>
-<p>Available Beds: {{ available_beds }}</p>
-<p>Occupied Beds: {{ occupied_beds }}</p>
+        <a href="{% url 'patient_list' %}" class="btn">
+            Manage Patients
+        </a>
+    </div>
 
-<h3>Billing</h3>
-<p>Total Paid Revenue: {{ total_revenue }}</p>
+    <div class="card">
+        <h3>Total Doctors</h3>
+        <p>{{ total_doctors }}</p>
 
-<h3>Pharmacy</h3>
-<p>Low Stock Medicines: {{ low_stock_medicines }}</p>
+        <a href="{% url 'doctor_list' %}" class="btn">
+            Manage Doctors
+        </a>
+    </div>
 
-<hr>
+    <div class="card">
+        <h3>Today's Appointments</h3>
+        <p>{{ today_appointments }}</p>
 
-<h3>Quick Links</h3>
+        <a href="{% url 'appointment_list' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
 
-<a href="{% url 'room_list' %}">Rooms</a>
-<br>
+    <div class="card">
+        <h3>Total Beds</h3>
+        <p>{{ total_beds }}</p>
 
-<a href="{% url 'bed_list' %}">Beds</a>
-<br>
+        <a href="{% url 'bed_list' %}" class="btn">
+            Manage Beds
+        </a>
+    </div>
 
-<a href="{% url 'admit_patient' %}">Admit Patient</a>
-<br>
+    <div class="card">
+        <h3>Available Beds</h3>
+        <p>{{ available_beds }}</p>
 
-<a href="{% url 'patient_bills' %}">My Bills</a>
-<br>
+        <a href="{% url 'bed_list' %}" class="btn">
+            View Beds
+        </a>
+    </div>
 
-<a href="{% url 'reports' %}">Reports</a>
-</body>
-</html>
+    <div class="card">
+        <h3>Occupied Beds</h3>
+        <p>{{ occupied_beds }}</p>
+
+        <a href="{% url 'bed_list' %}" class="btn">
+            View Beds
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Total Revenue</h3>
+        <p>Rs. {{ total_revenue }}</p>
+
+        <a href="{% url 'billing_list' %}" class="btn">
+            View Billing
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Low Stock Medicines</h3>
+        <p>{{ low_stock_medicines }}</p>
+
+        <a href="{% url 'medicine_list' %}" class="btn">
+            Manage Pharmacy
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
