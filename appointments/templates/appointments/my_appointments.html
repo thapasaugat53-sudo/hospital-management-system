@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>My Appointments</title>
-</head>
+{% block title %}My Appointments{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>My Appointments</h1>
+<h1>My Appointments</h1>
 
-    <a href="{% url 'book_appointment' %}">
-        Book New Appointment
-    </a>
+<a href="{% url 'book_appointment' %}" class="btn">
+    Book New Appointment
+</a>
 
-    <br><br>
+<div style="margin-top: 25px;">
 
     {% if appointments %}
 
-        <table border="1">
+    <table>
 
+        <thead>
             <tr>
                 <th>Doctor</th>
                 <th>Date</th>
@@ -27,6 +25,9 @@
                 <th>Status</th>
                 <th>Token</th>
             </tr>
+        </thead>
+
+        <tbody>
 
             {% for appointment in appointments %}
 
@@ -60,14 +61,22 @@
 
             {% endfor %}
 
-        </table>
+        </tbody>
+
+    </table>
 
     {% else %}
 
+    <div class="card" style="margin-top: 20px;">
         <p>You don't have any appointments yet.</p>
+
+        <a href="{% url 'book_appointment' %}" class="btn">
+            Book an Appointment
+        </a>
+    </div>
 
     {% endif %}
 
-</body>
+</div>
 
-</html>
+{% endblock %}

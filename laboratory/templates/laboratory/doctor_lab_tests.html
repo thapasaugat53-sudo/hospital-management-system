@@ -1,66 +1,91 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Laboratory Results</title>
-</head>
+{% block title %}Laboratory Results{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Laboratory Results</h1>
+<h1>Laboratory Results</h1>
 
-    {% if tests %}
+{% if tests %}
 
-    <table border="1">
+<div class="card">
 
-        <tr>
-            <th>Patient</th>
-            <th>Test</th>
-            <th>Result</th>
-            <th>Status</th>
-            <th>Date</th>
-        </tr>
+    <table>
 
-        {% for test in tests %}
+        <thead>
 
-        <tr>
+            <tr>
+                <th>Patient</th>
+                <th>Test</th>
+                <th>Result</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
 
-            <td>
-                {{ test.patient.user.username }}
-            </td>
+        </thead>
 
-            <td>
-                {{ test.test_name }}
-            </td>
+        <tbody>
 
-            <td>
-                {% if test.status == "COMPLETED" %}
-                    {{ test.result }}
-                {% else %}
-                    Result Pending
-                {% endif %}
-            </td>
+            {% for test in tests %}
 
-            <td>
-                {{ test.status }}
-            </td>
+            <tr>
 
-            <td>
-                {{ test.created_at }}
-            </td>
+                <td>
+                    {{ test.patient.user.username }}
+                </td>
 
-        </tr>
+                <td>
+                    {{ test.test_name }}
+                </td>
 
-        {% endfor %}
+                <td>
+
+                    {% if test.status == "COMPLETED" %}
+
+                        {{ test.result }}
+
+                    {% else %}
+
+                        Result Pending
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ test.status }}
+                </td>
+
+                <td>
+                    {{ test.created_at|date:"M d, Y H:i" }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
 
     </table>
 
-    {% else %}
+</div>
 
-        <p>No laboratory tests found.</p>
+{% else %}
 
-    {% endif %}
+<div class="card">
 
-</body>
+    <p>No laboratory tests found.</p>
 
-</html>
+</div>
+
+{% endif %}
+
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'doctor_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

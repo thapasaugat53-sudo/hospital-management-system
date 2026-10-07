@@ -1,48 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rooms</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Hospital Rooms{% endblock %}
+
+{% block content %}
 
 <h1>Hospital Rooms</h1>
 
 {% if rooms %}
-<table border="1">
-    <tr>
-        <th>Room Number</th>
-        <th>Type</th>
-        <th>Floor</th>
-        <th>Total Beds</th>
-        <th>Occupied Beds</th>
-        <th>Available Beds</th>
-        <th>Room Status</th>
-    </tr>
 
-    {% for room in rooms %}
-    <tr>
-        <td>{{ room.room_number }}</td>
-        <td>{{ room.get_room_type_display }}</td>
-        <td>{{ room.floor }}</td>
-        <td>{{ room.total_beds }}</td>
-        <td>{{ room.occupied_beds }}</td>
-        <td>{{ room.available_beds }}</td>
-        <td>{{ room.current_availability }}</td>
-    </tr>
-{% endfor %}
-</table>
+<div class="card">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Type</th>
+                <th>Floor</th>
+                <th>Total Beds</th>
+                <th>Occupied Beds</th>
+                <th>Available Beds</th>
+                <th>Room Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for room in rooms %}
+
+            <tr>
+
+                <td>
+                    {{ room.room_number }}
+                </td>
+
+                <td>
+                    {{ room.get_room_type_display }}
+                </td>
+
+                <td>
+                    {{ room.floor }}
+                </td>
+
+                <td>
+                    {{ room.total_beds }}
+                </td>
+
+                <td>
+                    {{ room.occupied_beds }}
+                </td>
+
+                <td>
+                    {{ room.available_beds }}
+                </td>
+
+                <td>
+                    {{ room.current_availability }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
 
 {% else %}
-<p>No rooms found.</p>
+
+<div class="card">
+
+    <p>No rooms found.</p>
+
+</div>
+
 {% endif %}
 
-<br>
+<div style="margin-top: 20px;">
 
+    <a href="{% url 'bed_list' %}" class="btn">
+        View All Beds
+    </a>
 
-<a href="{% url 'bed_list' %}">View All Beds</a>
-<br>
+    <a href="{% url 'admit_patient' %}" class="btn" style="margin-left: 8px;">
+        Admit Patient
+    </a>
 
-<a href="{% url 'admit_patient' %}">Admit Patient</a>
+</div>
 
-</body>
-</html>
+{% endblock %}

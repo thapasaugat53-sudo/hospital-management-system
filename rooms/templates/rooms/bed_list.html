@@ -1,61 +1,108 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Beds</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Hospital Beds{% endblock %}
+
+{% block content %}
 
 <h1>Hospital Beds</h1>
 
 {% if beds %}
-<table border="1">
-    <tr>
-        <th>Bed Number</th>
-        <th>Room</th>
-        <th>Room Type</th>
-        <th>Patient</th>
-        <th>Status</th>
-    </tr>
 
-    {% for bed in beds %}
-    <tr>
-        <td>{{ bed.bed_number }}</td>
-        <td>{{ bed.room.room_number }}</td>
-        <td>{{ bed.room.get_room_type_display }}</td>
+<div class="card">
 
-        <td>
-            {% if bed.patient %}
-                {{ bed.patient.user.username }}
-            {% else %}
-                -
-            {% endif %}
-        </td>
+    <table>
 
-        <td>
-            {% if bed.is_occupied %}
-                Occupied
-                <br>
-                <a href="{% url 'discharge_patient' bed.id %}">
-                    Discharge Patient
-                </a>
-            {% else %}
-                Available
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+        <thead>
+            <tr>
+                <th>Bed Number</th>
+                <th>Room</th>
+                <th>Room Type</th>
+                <th>Patient</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for bed in beds %}
+
+            <tr>
+
+                <td>
+                    {{ bed.bed_number }}
+                </td>
+
+                <td>
+                    {{ bed.room.room_number }}
+                </td>
+
+                <td>
+                    {{ bed.room.get_room_type_display }}
+                </td>
+
+                <td>
+
+                    {% if bed.patient %}
+                        {{ bed.patient.user.username }}
+                    {% else %}
+                        -
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if bed.is_occupied %}
+
+                        <strong>Occupied</strong>
+
+                        <div style="margin-top: 8px;">
+
+                            <a href="{% url 'discharge_patient' bed.id %}"
+                               class="btn">
+                                Discharge Patient
+                            </a>
+
+                        </div>
+
+                    {% else %}
+
+                        <strong>Available</strong>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
 
 {% else %}
-<p>No beds found.</p>
+
+<div class="card">
+
+    <p>No beds found.</p>
+
+</div>
+
 {% endif %}
 
-<br>
+<div style="margin-top: 20px;">
 
-<a href="{% url 'room_list' %}">Back to Rooms</a>
-<br>
+    <a href="{% url 'room_list' %}" class="btn">
+        Back to Rooms
+    </a>
 
-<a href="{% url 'admit_patient' %}">Admit Patient</a>
+    <a href="{% url 'admit_patient' %}" class="btn" style="margin-left: 8px;">
+        Admit Patient
+    </a>
 
-</body>
-</html>
+</div>
+
+{% endblock %}  

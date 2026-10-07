@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Prescription</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+        }
+
+        .prescription {
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #1f4e79;
+            text-align: center;
+        }
+
+        .info {
+            margin-bottom: 25px;
+        }
+
+        .medicine {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            background: #1f4e79;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .prescription {
+                border: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="prescription">
+
+    <h1>Hospital Prescription</h1>
+
+    <hr>
+
+    <div class="info">
+
+        <p>
+            <strong>Patient:</strong>
+            {{ prescription.patient.user.username }}
+        </p>
+
+        <p>
+            <strong>Doctor:</strong>
+            Dr. {{ prescription.doctor.user.username }}
+        </p>
+
+        <p>
+            <strong>Date:</strong>
+            {{ prescription.created_at|date:"M d, Y H:i" }}
+        </p>
+
+    </div>
+
+    <div class="medicine">
+
+        <h2>Medicine</h2>
+
+        <p>
+            <strong>Medicine:</strong>
+            {{ prescription.medicine }}
+        </p>
+
+        <p>
+            <strong>Dosage:</strong>
+            {{ prescription.dosage }}
+        </p>
+
+        <p>
+            <strong>Instructions:</strong>
+            {{ prescription.instructions }}
+        </p>
+
+    </div>
+
+    <br>
+
+    <button onclick="window.print()" class="btn print-button">
+        Print Prescription
+    </button>
+
+</div>
+
+</body>
+
+</html>

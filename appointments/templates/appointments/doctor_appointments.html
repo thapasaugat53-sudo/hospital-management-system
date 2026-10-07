@@ -1,26 +1,27 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Doctor Appointments</title>
-</head>
+{% block title %}Doctor Appointments{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Doctor Appointments</h1>
+<h1>Doctor Appointments</h1>
 
-    {% if appointments %}
+{% if appointments %}
 
-    <table border="1">
+<table>
 
+    <thead>
         <tr>
             <th>Token</th>
             <th>Patient</th>
             <th>Date</th>
             <th>Time</th>
             <th>Reason</th>
-            <th>Status</th>
+            <th>Status / Action</th>
         </tr>
+    </thead>
+
+    <tbody>
 
         {% for appointment in appointments %}
 
@@ -47,47 +48,64 @@
             </td>
 
             <td>
-                {{ appointment.status }}
 
                 {% if appointment.status == "PENDING" %}
 
-                    <a href="{% url 'confirm_appointment' appointment.id %}">
-                        Confirm
-                    </a>
+                    <strong>Pending</strong>
 
-                    <a href="{% url 'cancel_appointment' appointment.id %}">
-                        Cancel
-                    </a>
+                    <div style="margin-top: 8px;">
+
+                        <a href="{% url 'confirm_appointment' appointment.id %}"
+                           class="btn">
+                            Confirm
+                        </a>
+
+                        <a href="{% url 'cancel_appointment' appointment.id %}"
+                           class="btn"
+                           style="margin-left: 5px;">
+                            Cancel
+                        </a>
+
+                    </div>
 
                 {% elif appointment.status == "CONFIRMED" %}
 
-                    <a href="{% url 'consultation' appointment.id %}">
-                        Start Consultation
-                    </a>
+                    <strong>Confirmed</strong>
+
+                    <div style="margin-top: 8px;">
+
+                        <a href="{% url 'consultation' appointment.id %}"
+                           class="btn">
+                            Start Consultation
+                        </a>
+
+                    </div>
 
                 {% elif appointment.status == "COMPLETED" %}
 
-                    <span>Consultation Completed</span>
+                    <strong>Completed</strong>
 
-                    <br>
+                    <div style="margin-top: 8px;">
 
-                    <a href="{% url 'create_prescription' appointment.id %}">
-                        Create Prescription
-                    </a>
+                        <a href="{% url 'create_prescription' appointment.id %}"
+                           class="btn">
+                            Create Prescription
+                        </a>
 
-                    <br>
+                    </div>
 
-                    <a href="{% url 'request_lab_test' appointment.id %}">
-                        Request Lab Test
-                    </a>
+                    <div style="margin-top: 8px;">
 
-                    <br>
+                        <a href="{% url 'request_lab_test' appointment.id %}"
+                           class="btn">
+                            Request Lab Test
+                        </a>
 
-                
+                    </div>
 
                 {% elif appointment.status == "CANCELLED" %}
 
-                    <span>Appointment Cancelled</span>
+                    <strong>Cancelled</strong>
 
                 {% endif %}
 
@@ -97,14 +115,18 @@
 
         {% endfor %}
 
-    </table>
+    </tbody>
 
-    {% else %}
+</table>
 
-        <p>No appointments found.</p>
+{% else %}
 
-    {% endif %}
+<div class="card">
 
-</body>
+    <p>No appointments found.</p>
 
-</html>
+</div>
+
+{% endif %}
+
+{% endblock %}

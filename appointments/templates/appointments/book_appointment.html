@@ -1,40 +1,45 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Book Appointment</title>
-</head>
+{% block title %}Book Appointment{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Hospital Management System</h1>
+<div class="card" style="max-width: 700px; margin: 0 auto;">
 
-    <h2>Book Appointment</h2>
+    <h1>Book Appointment</h1>
+
+    <p>
+        Select a doctor, date and time for your appointment.
+    </p>
 
     <form method="POST">
 
         {% csrf_token %}
 
         {% if form.non_field_errors %}
+
             <div style="color: red; margin-bottom: 15px;">
                 {{ form.non_field_errors }}
             </div>
+
         {% endif %}
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             Book Appointment
         </button>
 
     </form>
 
-    <br>
+    <div style="margin-top: 20px;">
 
-    <a href="{% url 'patient_dashboard' %}">
-        Back to Dashboard
-    </a>
+        <a href="{% url 'patient_dashboard' %}" class="btn">
+            Back to Dashboard
+        </a>
 
-</body>
+    </div>
 
-</html>
+</div>
+
+{% endblock %}

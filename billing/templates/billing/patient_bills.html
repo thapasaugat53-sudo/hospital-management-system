@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>My Bills</title>
-</head>
+{% block title %}My Bills{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>My Bills</h1>
+<h1>My Bills</h1>
 
-    {% if bills %}
+{% if bills %}
 
-    <table border="1">
+<table>
 
+    <thead>
         <tr>
             <th>Bill ID</th>
             <th>Doctor</th>
@@ -22,6 +20,9 @@
             <th>Date</th>
             <th>Action</th>
         </tr>
+    </thead>
+
+    <tbody>
 
         {% for bill in bills %}
 
@@ -48,11 +49,11 @@
             </td>
 
             <td>
-                {{ bill.created_at }}
+                {{ bill.created_at|date:"M d, Y H:i" }}
             </td>
 
             <td>
-                <a href="{% url 'bill_detail' bill.id %}">
+                <a href="{% url 'bill_detail' bill.id %}" class="btn">
                     View Invoice
                 </a>
             </td>
@@ -61,14 +62,22 @@
 
         {% endfor %}
 
-    </table>
+    </tbody>
 
-    {% else %}
+</table>
 
-        <p>No bills found.</p>
+{% else %}
 
-    {% endif %}
+<div class="card">
+    <p>No bills found.</p>
+</div>
 
-</body>
+{% endif %}
 
-</html>
+<div style="margin-top: 20px;">
+    <a href="{% url 'patient_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

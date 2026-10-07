@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Create Bill</title>
-</head>
+{% block title %}Create Bill{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Create Bill</h1>
+<h1>Create Bill</h1>
+
+<div class="card" style="max-width: 700px; margin: 0 auto;">
+
+    <h2>Appointment Information</h2>
 
     <p>
         <strong>Patient:</strong>
@@ -24,24 +25,32 @@
         #{{ appointment.id }}
     </p>
 
+</div>
+
+<div class="card" style="max-width: 700px; margin: 25px auto 0;">
+
+    <h2>Billing Details</h2>
+
     <form method="POST">
 
         {% csrf_token %}
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             Create Bill
         </button>
 
     </form>
 
-    <br>
+</div>
 
-    <a href="{% url 'doctor_appointments' %}">
+<div style="max-width: 700px; margin: 20px auto;">
+
+    <a href="{% url 'appointment_list' %}" class="btn">
         Back to Appointments
     </a>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

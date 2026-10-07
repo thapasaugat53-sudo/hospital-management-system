@@ -1,48 +1,85 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Appointments</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
 
 <h1>Appointments</h1>
 
-{% for appointment in appointments %}
+{% if appointments %}
 
-    <div style="margin-bottom: 20px;">
+<table>
 
-        <p>
-            <strong>Patient:</strong>
-            {{ appointment.patient }}
-            |
-            <strong>Doctor:</strong>
-            {{ appointment.doctor }}
-            |
-            <strong>Date:</strong>
-            {{ appointment.appointment_date }}
-            |
-            <strong>Time:</strong>
-            {{ appointment.appointment_time }}
-            |
-            <strong>Status:</strong>
-            {{ appointment.status }}
-        </p>
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
 
-        {% if appointment.status == "COMPLETED" %}
+    <tbody>
 
-            <a href="{% url 'create_bill' appointment.id %}">
-                Create Bill
-            </a>
+        {% for appointment in appointments %}
 
-        {% endif %}
+        <tr>
 
-    </div>
+            <td>
+                {{ appointment.patient }}
+            </td>
 
-{% empty %}
+            <td>
+                {{ appointment.doctor }}
+            </td>
+
+            <td>
+                {{ appointment.appointment_date }}
+            </td>
+
+            <td>
+                {{ appointment.appointment_time }}
+            </td>
+
+            <td>
+                {{ appointment.status }}
+            </td>
+
+            <td>
+
+                {% if appointment.status == "COMPLETED" %}
+
+                    <a href="{% url 'create_bill' appointment.id %}"
+                       class="btn">
+                        Create Bill
+                    </a>
+
+                {% else %}
+
+                    <span>No action</span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="card">
 
     <p>No appointments found.</p>
 
-{% endfor %}
+</div>
 
-</body>
-</html>
+{% endif %}
+
+{% endblock %}

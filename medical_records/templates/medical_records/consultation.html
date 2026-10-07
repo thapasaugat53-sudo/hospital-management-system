@@ -1,44 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Consultation{% endblock %}
+
+{% block content %}
+
 <h1>Patient Consultation</h1>
 
-<h2>Patient Information</h2>
+<div class="card" style="margin-bottom: 25px;">
 
-<p>
-    Patient:
-    {{ appointment.patient.user.username }}
-</p>
+    <h2>Patient Information</h2>
 
-<p>
-    Doctor:
-    Dr. {{ appointment.doctor.user.username }}
-</p>
+    <p>
+        <strong>Patient:</strong>
+        {{ appointment.patient.user.username }}
+    </p>
 
-<p>
-    Date:
-    {{ appointment.appointment_date }}
-</p>
+    <p>
+        <strong>Doctor:</strong>
+        Dr. {{ appointment.doctor.user.username }}
+    </p>
 
-<p>
-    Time:
-    {{ appointment.appointment_time }}
-</p>
+    <p>
+        <strong>Date:</strong>
+        {{ appointment.appointment_date }}
+    </p>
 
-<p>
-    Token:
-    {{ appointment.token_number }}
-</p>
+    <p>
+        <strong>Time:</strong>
+        {{ appointment.appointment_time }}
+    </p>
 
-<hr>
+    <p>
+        <strong>Token:</strong>
+        {{ appointment.token_number }}
+    </p>
 
-<h2>Consultation</h2>
+</div>
 
-<form method="POST">
+<div class="card">
 
-    {% csrf_token %}
+    <h2>Consultation</h2>
 
-    {{ form.as_p }}
+    <form method="POST">
 
-    <button type="submit">
-        Complete Consultation
-    </button>
+        {% csrf_token %}
 
-</form>
+        {{ form.as_p }}
+
+        <button type="submit" class="btn">
+            Complete Consultation
+        </button>
+
+    </form>
+
+</div>
+
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'doctor_appointments' %}" class="btn">
+        Back to Appointments
+    </a>
+
+</div>
+
+{% endblock %}

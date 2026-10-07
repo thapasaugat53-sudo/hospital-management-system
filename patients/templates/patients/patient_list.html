@@ -1,17 +1,62 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Patients</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Patients{% endblock %}
+
+{% block content %}
 
 <h1>Patients</h1>
 
-{% for patient in patients %}
-    <p>{{ patient }}</p>
-{% empty %}
-    <p>No patients found.</p>
-{% endfor %}
+<div class="card">
 
-</body>
-</html>
+    {% if patients %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for patient in patients %}
+
+            <tr>
+
+                <td>
+                    {{ patient }}
+                </td>
+
+                <td>
+                    <a href="#" class="btn">
+                        View Patient
+                    </a>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <p>No patients found.</p>
+
+    {% endif %}
+
+</div>
+
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'receptionist_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>My Lab Tests</title>
-</head>
+{% block title %}My Laboratory Tests{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>My Laboratory Tests</h1>
+<h1>My Laboratory Tests</h1>
 
-    {% if tests %}
+{% if tests %}
 
-    <table border="1">
+<table>
 
+    <thead>
         <tr>
             <th>Doctor</th>
             <th>Test</th>
@@ -20,6 +18,9 @@
             <th>Status</th>
             <th>Date</th>
         </tr>
+    </thead>
+
+    <tbody>
 
         {% for test in tests %}
 
@@ -46,21 +47,29 @@
             </td>
 
             <td>
-                {{ test.created_at }}
+                {{ test.created_at|date:"M d, Y H:i" }}
             </td>
 
         </tr>
 
         {% endfor %}
 
-    </table>
+    </tbody>
 
-    {% else %}
+</table>
 
-        <p>No laboratory tests found.</p>
+{% else %}
 
-    {% endif %}
+<div class="card">
+    <p>No laboratory tests found.</p>
+</div>
 
-</body>
+{% endif %}
 
-</html>
+<div style="margin-top: 20px;">
+    <a href="{% url 'patient_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+</div>
+
+{% endblock %}

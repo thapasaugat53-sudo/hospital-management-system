@@ -1,20 +1,23 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>{{ action }} Stock</title>
-</head>
+{% block title %}{{ action }} Stock{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>{{ action }} Stock</h1>
+<h1>{{ action }} Stock</h1>
+
+<div class="card" style="max-width: 700px; margin: 0 auto;">
 
     <h2>{{ medicine.name }}</h2>
 
     <p>
-        Current Stock:
+        <strong>Current Stock:</strong>
         {{ medicine.quantity }}
     </p>
+
+</div>
+
+<div class="card" style="max-width: 700px; margin: 25px auto 0;">
 
     <form method="POST">
 
@@ -22,18 +25,20 @@
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             {{ action }} Stock
         </button>
 
     </form>
 
-    <br>
+</div>
 
-    <a href="{% url 'medicine_list' %}">
+<div style="max-width: 700px; margin: 20px auto;">
+
+    <a href="{% url 'medicine_list' %}" class="btn">
         Back to Medicine List
     </a>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

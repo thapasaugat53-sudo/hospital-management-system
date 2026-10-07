@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Prescription History</title>
-</head>
+{% block title %}Prescription History{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Prescription History</h1>
+<h1>Prescription History</h1>
 
-    {% if prescriptions %}
+{% if prescriptions %}
 
-    <table border="1">
+<table>
 
+    <thead>
         <tr>
             <th>Doctor</th>
             <th>Medicine</th>
@@ -21,6 +19,9 @@
             <th>Date</th>
             <th>Action</th>
         </tr>
+    </thead>
+
+    <tbody>
 
         {% for prescription in prescriptions %}
 
@@ -43,11 +44,12 @@
             </td>
 
             <td>
-                {{ prescription.created_at }}
+                {{ prescription.created_at|date:"M d, Y H:i" }}
             </td>
 
             <td>
-                <a href="{% url 'print_prescription' prescription.id %}">
+                <a href="{% url 'print_prescription' prescription.id %}"
+                   class="btn">
                     Print Prescription
                 </a>
             </td>
@@ -56,14 +58,26 @@
 
         {% endfor %}
 
-    </table>
+    </tbody>
 
-    {% else %}
+</table>
+
+{% else %}
+
+<div class="card">
 
     <p>No prescriptions found.</p>
 
-    {% endif %}
+</div>
 
-</body>
+{% endif %}
 
-</html>
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'patient_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

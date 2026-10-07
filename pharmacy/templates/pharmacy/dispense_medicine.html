@@ -1,25 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Dispense Medicine</title>
-</head>
+{% block title %}Dispense Medicine{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Dispense Medicine</h1>
+<h1>Dispense Medicine</h1>
+
+<div class="card" style="max-width: 700px; margin: 0 auto;">
 
     <h2>{{ medicine.name }}</h2>
 
     <p>
-        Available Stock:
+        <strong>Available Stock:</strong>
         {{ medicine.quantity }}
     </p>
 
     <p>
-        Price per unit:
-        {{ medicine.price }}
+        <strong>Price per Unit:</strong>
+        Rs. {{ medicine.price }}
     </p>
+
+</div>
+
+<div class="card" style="max-width: 700px; margin: 25px auto 0;">
+
+    <h2>Dispense Details</h2>
 
     <form method="POST">
 
@@ -27,18 +32,20 @@
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             Dispense Medicine
         </button>
 
     </form>
 
-    <br>
+</div>
 
-    <a href="{% url 'medicine_list' %}">
+<div style="max-width: 700px; margin: 20px auto;">
+
+    <a href="{% url 'medicine_list' %}" class="btn">
         Back to Medicine List
     </a>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Bill #{{ bill.id }}</title>
-</head>
+{% block title %}Hospital Invoice #{{ bill.id }}{% endblock %}
 
-<body>
+{% block content %}
+
+<div class="card" style="max-width: 900px; margin: 0 auto;">
 
     <h1>Hospital Invoice</h1>
 
@@ -35,53 +34,63 @@
 
     <h2>Charges</h2>
 
-    <table border="1">
+    <table>
 
-        <tr>
-            <th>Charge</th>
-            <th>Amount</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Charge</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
 
-        <tr>
-            <td>Consultation Fee</td>
-            <td>Rs. {{ bill.consultation_fee }}</td>
-        </tr>
+        <tbody>
 
-        <tr>
-            <td>Laboratory Charges</td>
-            <td>Rs. {{ bill.lab_charges }}</td>
-        </tr>
+            <tr>
+                <td>Consultation Fee</td>
+                <td>Rs. {{ bill.consultation_fee }}</td>
+            </tr>
 
-        <tr>
-            <td>Medicine Charges</td>
-            <td>Rs. {{ bill.medicine_charges }}</td>
-        </tr>
+            <tr>
+                <td>Laboratory Charges</td>
+                <td>Rs. {{ bill.lab_charges }}</td>
+            </tr>
 
-        <tr>
-            <th>Total</th>
-            <th>Rs. {{ bill.total_amount }}</th>
-        </tr>
+            <tr>
+                <td>Medicine Charges</td>
+                <td>Rs. {{ bill.medicine_charges }}</td>
+            </tr>
+
+            <tr>
+                <th>Total</th>
+                <th>Rs. {{ bill.total_amount }}</th>
+            </tr>
+
+        </tbody>
 
     </table>
 
-    <br>
+    <div style="margin-top: 20px;">
 
-    <p>
-        <strong>Payment Status:</strong>
-        {{ bill.payment_status }}
-    </p>
+        <p>
+            <strong>Payment Status:</strong>
+            {{ bill.payment_status }}
+        </p>
 
-    <p>
-        <strong>Created:</strong>
-        {{ bill.created_at }}
-    </p>
+        <p>
+            <strong>Created:</strong>
+            {{ bill.created_at|date:"M d, Y H:i" }}
+        </p>
 
-    <br>
+    </div>
 
-    <a href="{% url 'doctor_appointments' %}">
-        Back to Appointments
+</div>
+
+<div style="max-width: 900px; margin: 20px auto;">
+
+    <a href="{% url 'patient_bills' %}" class="btn">
+        Back to My Bills
     </a>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

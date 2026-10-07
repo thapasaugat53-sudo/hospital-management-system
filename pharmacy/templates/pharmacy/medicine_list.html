@@ -1,95 +1,90 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Pharmacy</title>
-</head>
+{% block title %}Pharmacy{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Medicine List</h1>
+<h1>Medicine List</h1>
 
-    <a href="{% url 'add_medicine' %}">
-        Add Medicine
-    </a>
+<a href="{% url 'add_medicine' %}" class="btn">
+    Add Medicine
+</a>
 
-    <br><br>
+<!-- LOW STOCK ALERT -->
 
+{% if low_stock_medicines %}
 
-    <!-- LOW STOCK ALERT -->
+<div class="card" style="margin-top: 25px;">
 
-    {% if low_stock_medicines %}
+    <h2>⚠️ Low Stock</h2>
 
-        <h2>⚠️ Low Stock</h2>
+    {% for medicine in low_stock_medicines %}
 
-        <ul>
+    <p>
+        <strong>{{ medicine.name }}</strong>
+        — {{ medicine.quantity }} remaining
+    </p>
 
-            {% for medicine in low_stock_medicines %}
+    {% endfor %}
 
-                <li>
-                    {{ medicine.name }}
-                    — {{ medicine.quantity }} remaining
-                </li>
+</div>
 
-            {% endfor %}
-
-        </ul>
-
-    {% endif %}
+{% endif %}
 
 
-    <!-- EXPIRED MEDICINES -->
+<!-- EXPIRED MEDICINES -->
 
-    {% if expired_medicines %}
+{% if expired_medicines %}
 
-        <h2>❌ Expired Medicines</h2>
+<div class="card" style="margin-top: 20px;">
 
-        <ul>
+    <h2>❌ Expired Medicines</h2>
 
-            {% for medicine in expired_medicines %}
+    {% for medicine in expired_medicines %}
 
-                <li>
-                    {{ medicine.name }}
-                    — Expired on {{ medicine.expiry_date }}
-                </li>
+    <p>
+        <strong>{{ medicine.name }}</strong>
+        — Expired on {{ medicine.expiry_date }}
+    </p>
 
-            {% endfor %}
+    {% endfor %}
 
-        </ul>
+</div>
 
-    {% endif %}
-
-
-    <!-- EXPIRING SOON -->
-
-    {% if expiring_soon_medicines %}
-
-        <h2>⚠️ Expiring Soon</h2>
-
-        <ul>
-
-            {% for medicine in expiring_soon_medicines %}
-
-                <li>
-                    {{ medicine.name }}
-                    — Expires on {{ medicine.expiry_date }}
-                </li>
-
-            {% endfor %}
-
-        </ul>
-
-    {% endif %}
+{% endif %}
 
 
-    <br>
+<!-- EXPIRING SOON -->
+
+{% if expiring_soon_medicines %}
+
+<div class="card" style="margin-top: 20px;">
+
+    <h2>⚠️ Expiring Soon</h2>
+
+    {% for medicine in expiring_soon_medicines %}
+
+    <p>
+        <strong>{{ medicine.name }}</strong>
+        — Expires on {{ medicine.expiry_date }}
+    </p>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
 
 
-    <!-- MEDICINE TABLE -->
+<!-- MEDICINE TABLE -->
 
-    {% if medicines %}
+{% if medicines %}
 
-        <table border="1">
+<div class="card" style="margin-top: 25px;">
+
+    <table>
+
+        <thead>
 
             <tr>
                 <th>Medicine</th>
@@ -99,6 +94,10 @@
                 <th>Stock Status</th>
                 <th>Actions</th>
             </tr>
+
+        </thead>
+
+        <tbody>
 
             {% for medicine in medicines %}
 
@@ -113,7 +112,7 @@
                 </td>
 
                 <td>
-                    {{ medicine.price }}
+                    Rs. {{ medicine.price }}
                 </td>
 
                 <td>
@@ -124,7 +123,7 @@
 
                     {% if medicine.quantity <= medicine.low_stock_threshold %}
 
-                        Low Stock
+                        <strong>Low Stock</strong>
 
                     {% else %}
 
@@ -136,32 +135,42 @@
 
                 <td>
 
-                    <a href="{% url 'edit_medicine' medicine.id %}">
+                    <a href="{% url 'edit_medicine' medicine.id %}"
+                       class="btn">
                         Edit
                     </a>
 
-                    &nbsp;
-
-                    <a href="{% url 'increase_stock' medicine.id %}">
-                        Increase Stock
+                    <a href="{% url 'increase_stock' medicine.id %}"
+                       class="btn"
+                       style="margin-left: 5px;">
+                        + Stock
                     </a>
 
-                    &nbsp;
-
-                    <a href="{% url 'decrease_stock' medicine.id %}">
-                        Decrease Stock
+                    <a href="{% url 'decrease_stock' medicine.id %}"
+                       class="btn"
+                       style="margin-left: 5px;">
+                        - Stock
                     </a>
 
-                    &nbsp;
-
-                    <form method="post" action="{% url 'delete_medicine' medicine.id %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
-
-                    <a href="{% url 'dispense_medicine' medicine.id %}">
+                    <a href="{% url 'dispense_medicine' medicine.id %}"
+                       class="btn"
+                       style="margin-left: 5px;">
                         Dispense
                     </a>
+
+                    <form method="post"
+                          action="{% url 'delete_medicine' medicine.id %}"
+                          style="display: inline;">
+
+                        {% csrf_token %}
+
+                        <button type="submit"
+                                class="btn"
+                                style="margin-left: 5px;">
+                            Delete
+                        </button>
+
+                    </form>
 
                 </td>
 
@@ -169,14 +178,28 @@
 
             {% endfor %}
 
-        </table>
+        </tbody>
 
-    {% else %}
+    </table>
 
-        <p>No medicines found.</p>
+</div>
 
-    {% endif %}
+{% else %}
 
-</body>
+<div class="card" style="margin-top: 25px;">
 
-</html>
+    <p>No medicines found.</p>
+
+</div>
+
+{% endif %}
+
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'receptionist_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

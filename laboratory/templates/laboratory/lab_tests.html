@@ -1,79 +1,99 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Laboratory Tests</title>
-</head>
+{% block title %}Laboratory Tests{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Laboratory Tests</h1>
+<h1>Laboratory Tests</h1>
 
-    {% if tests %}
+{% if tests %}
 
-    <table border="1">
+<div class="card">
 
-        <tr>
-            <th>Patient</th>
-            <th>Doctor</th>
-            <th>Test</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Action</th>
-        </tr>
+    <table>
 
-        {% for test in tests %}
+        <thead>
 
-        <tr>
+            <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Test</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
 
-            <td>
-                {{ test.patient.user.username }}
-            </td>
+        </thead>
 
-            <td>
-                Dr. {{ test.doctor.user.username }}
-            </td>
+        <tbody>
 
-            <td>
-                {{ test.test_name }}
-            </td>
+            {% for test in tests %}
 
-            <td>
-                {{ test.status }}
-            </td>
+            <tr>
 
-            <td>
-                {{ test.created_at }}
-            </td>
+                <td>
+                    {{ test.patient.user.username }}
+                </td>
 
-            <td>
+                <td>
+                    Dr. {{ test.doctor.user.username }}
+                </td>
 
-                {% if test.status == "REQUESTED" %}
+                <td>
+                    {{ test.test_name }}
+                </td>
 
-                <a href="{% url 'enter_lab_result' test.id %}">
-                    Enter Result
-                </a>
+                <td>
+                    {{ test.status }}
+                </td>
 
-                {% elif test.status == "COMPLETED" %}
+                <td>
+                    {{ test.created_at|date:"M d, Y H:i" }}
+                </td>
 
-                    <span>Completed</span>
+                <td>
 
-                {% endif %}
+                    {% if test.status == "REQUESTED" %}
 
-            </td>
+                    <a href="{% url 'enter_lab_result' test.id %}"
+                       class="btn">
+                        Enter Result
+                    </a>
 
-        </tr>
+                    {% elif test.status == "COMPLETED" %}
 
-        {% endfor %}
+                    <strong>Completed</strong>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
 
     </table>
 
-    {% else %}
+</div>
 
-        <p>No laboratory tests found.</p>
+{% else %}
 
-    {% endif %}
+<div class="card">
 
-</body>
+    <p>No laboratory tests found.</p>
 
-</html>
+</div>
+
+{% endif %}
+
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'receptionist_dashboard' %}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

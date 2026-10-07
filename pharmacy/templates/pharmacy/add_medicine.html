@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Add Medicine</title>
-</head>
+{% block title %}Add Medicine{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Add Medicine</h1>
+<h1>Add Medicine</h1>
+
+<div class="card" style="max-width: 700px; margin: 0 auto;">
 
     <form method="POST">
 
@@ -15,18 +14,20 @@
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             Add Medicine
         </button>
 
     </form>
 
-    <br>
+</div>
 
-    <a href="{% url 'medicine_list' %}">
+<div style="margin-top: 20px;">
+
+    <a href="{% url 'medicine_list' %}" class="btn">
         Back to Medicine List
     </a>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

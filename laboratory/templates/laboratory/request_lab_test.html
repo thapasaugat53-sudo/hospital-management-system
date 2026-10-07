@@ -1,23 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Request Lab Test</title>
-</head>
+{% block title %}Request Lab Test{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Request Lab Test</h1>
+<h1>Request Lab Test</h1>
+
+<div class="card" style="max-width: 700px; margin: 0 auto;">
+
+    <h2>Appointment Information</h2>
 
     <p>
-        Patient:
+        <strong>Patient:</strong>
         {{ appointment.patient.user.username }}
     </p>
 
     <p>
-        Appointment:
-        {{ appointment.id }}
+        <strong>Appointment:</strong>
+        #{{ appointment.id }}
     </p>
+
+</div>
+
+<div class="card" style="max-width: 700px; margin: 25px auto 0;">
+
+    <h2>Laboratory Test</h2>
 
     <form method="POST">
 
@@ -25,16 +32,20 @@
 
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="btn">
             Request Lab Test
         </button>
 
     </form>
 
-    <a href="{% url 'doctor_appointments' %}">
+</div>
+
+<div style="max-width: 700px; margin: 20px auto;">
+
+    <a href="{% url 'doctor_appointments' %}" class="btn">
         Back to Appointments
     </a>
 
-</body>
+</div>
 
-</html>
+{% endblock %}
