@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Prescription</title>
+</head>
+
+<body>
+
+    <h1>Create Prescription</h1>
+
+    <p>
+        Patient:
+        {{ appointment.patient.user.username }}
+    </p>
+
+    <p>
+        Doctor:
+        Dr. {{ appointment.doctor.user.username }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Save Prescription
+        </button>
+
+    </form>
+
+    <a href="{% url 'doctor_appointments' %}">
+        Back to Appointments
+    </a>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Receptionist Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Receptionist Dashboard</h1>
+
+<div class="card-container">
+
+    <div class="card">
+        <h3>Patients</h3>
+        <p>View and manage registered patients.</p>
+        <a href="{% url 'patient_list' %}" class="btn">
+            View Patients
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Appointments</h3>
+        <p>View and manage hospital appointments.</p>
+        <a href="{% url 'appointment_list' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Rooms</h3>
+        <p>Check room and bed availability.</p>
+        <a href="{% url 'room_list' %}" class="btn">
+            View Rooms
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Beds</h3>
+        <p>Manage patient bed allocation.</p>
+        <a href="{% url 'bed_list' %}" class="btn">
+            View Beds
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Pharmacy</h3>
+        <p>Manage medicines and stock.</p>
+        <a href="{% url 'medicine_list' %}" class="btn">
+            Open Pharmacy
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

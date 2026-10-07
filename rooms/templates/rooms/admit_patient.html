@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admit Patient</title>
+</head>
+<body>
+
+<h1>Admit Patient</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Admit Patient</button>
+</form>
+
+<br>
+
+<a href="{% url 'bed_list' %}">View Beds</a>
+<br>
+<a href="{% url 'room_list' %}">View Rooms</a>
+
+</body>
+</html>

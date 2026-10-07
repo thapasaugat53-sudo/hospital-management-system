@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Doctor Dashboard</h1>
+
+<div class="card-container">
+
+    <div class="card">
+        <h3>Appointments</h3>
+        <p>View and manage patient appointments.</p>
+        <a href="{% url 'doctor_appointments' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Medical Records</h3>
+        <p>Manage patient medical records and consultations.</p>
+
+        <a href="{% url 'doctor_appointments' %}" class="btn">
+            Manage Records
+        </a>
+    </div>
+
+    
+    <div class="card">
+        <h3>Laboratory Tests</h3>
+        <p>View and manage laboratory tests for your patients.</p>
+
+        <a href="{% url 'doctor_lab_tests' %}" class="btn">
+            View Laboratory Tests
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

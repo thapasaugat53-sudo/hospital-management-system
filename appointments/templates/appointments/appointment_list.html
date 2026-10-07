@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+</head>
+<body>
+
+<h1>Appointments</h1>
+
+{% for appointment in appointments %}
+
+    <div style="margin-bottom: 20px;">
+
+        <p>
+            <strong>Patient:</strong>
+            {{ appointment.patient }}
+            |
+            <strong>Doctor:</strong>
+            {{ appointment.doctor }}
+            |
+            <strong>Date:</strong>
+            {{ appointment.appointment_date }}
+            |
+            <strong>Time:</strong>
+            {{ appointment.appointment_time }}
+            |
+            <strong>Status:</strong>
+            {{ appointment.status }}
+        </p>
+
+        {% if appointment.status == "COMPLETED" %}
+
+            <a href="{% url 'create_bill' appointment.id %}">
+                Create Bill
+            </a>
+
+        {% endif %}
+
+    </div>
+
+{% empty %}
+
+    <p>No appointments found.</p>
+
+{% endfor %}
+
+</body>
+</html>

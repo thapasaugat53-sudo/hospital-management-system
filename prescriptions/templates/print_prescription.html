@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prescription</title>
+</head>
+
+<body>
+
+    <h1>Hospital Prescription</h1>
+
+    <hr>
+
+    <p>
+        <strong>Patient:</strong>
+        {{ prescription.patient.user.username }}
+    </p>
+
+    <p>
+        <strong>Doctor:</strong>
+        Dr. {{ prescription.doctor.user.username }}
+    </p>
+
+    <p>
+        <strong>Date:</strong>
+        {{ prescription.created_at }}
+    </p>
+
+    <hr>
+
+    <h3>Medicine</h3>
+
+    <p>
+        {{ prescription.medicine }}
+    </p>
+
+    <h3>Dosage</h3>
+
+    <p>
+        {{ prescription.dosage }}
+    </p>
+
+    <h3>Instructions</h3>
+
+    <p>
+        {{ prescription.instructions }}
+    </p>
+
+    <br>
+
+    <button onclick="window.print()">
+        Print
+    </button>
+
+</body>
+
+</html>

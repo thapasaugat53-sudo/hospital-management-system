@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rooms</title>
+</head>
+<body>
+
+<h1>Hospital Rooms</h1>
+
+{% if rooms %}
+<table border="1">
+    <tr>
+        <th>Room Number</th>
+        <th>Type</th>
+        <th>Floor</th>
+        <th>Total Beds</th>
+        <th>Occupied Beds</th>
+        <th>Available Beds</th>
+        <th>Room Status</th>
+    </tr>
+
+    {% for room in rooms %}
+    <tr>
+        <td>{{ room.room_number }}</td>
+        <td>{{ room.get_room_type_display }}</td>
+        <td>{{ room.floor }}</td>
+        <td>{{ room.total_beds }}</td>
+        <td>{{ room.occupied_beds }}</td>
+        <td>{{ room.available_beds }}</td>
+        <td>{{ room.current_availability }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% else %}
+<p>No rooms found.</p>
+{% endif %}
+
+<br>
+
+
+<a href="{% url 'bed_list' %}">View All Beds</a>
+<br>
+
+<a href="{% url 'admit_patient' %}">Admit Patient</a>
+
+</body>
+</html>

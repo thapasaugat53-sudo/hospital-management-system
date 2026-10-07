@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Patient Dashboard</h1>
+
+<div class="card-container">
+
+    <div class="card">
+        <h3>My Appointments</h3>
+        <p>View your upcoming and previous appointments.</p>
+        <a href="{% url 'my_appointments' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Prescriptions</h3>
+        <p>View your prescribed medicines and instructions.</p>
+
+        <a href="{% url 'prescription_history' %}" class="btn">
+            View Prescriptions
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Laboratory</h3>
+        <p>View your laboratory tests and results.</p>
+
+        <a href="{% url 'patient_lab_tests' %}" class="btn">
+            View Laboratory
+        </a>
+    </div>
+    
+    <div class="card">
+        <h3>Bills</h3>
+        <p>View your hospital bills and payment status.</p>
+
+        <a href="{% url 'patient_bills' %}" class="btn">
+            View Bills
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Medical History</h3>
+        <p>View your medical history and consultation records.</p>
+
+        <a href="{% url 'my_medical_history' %}" class="btn">
+            View Medical History
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+<h1>Patient Consultation</h1>
+
+<h2>Patient Information</h2>
+
+<p>
+    Patient:
+    {{ appointment.patient.user.username }}
+</p>
+
+<p>
+    Doctor:
+    Dr. {{ appointment.doctor.user.username }}
+</p>
+
+<p>
+    Date:
+    {{ appointment.appointment_date }}
+</p>
+
+<p>
+    Time:
+    {{ appointment.appointment_time }}
+</p>
+
+<p>
+    Token:
+    {{ appointment.token_number }}
+</p>
+
+<hr>
+
+<h2>Consultation</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Complete Consultation
+    </button>
+
+</form>

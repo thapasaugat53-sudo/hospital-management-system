@@ -38,6 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    "doctors",
+    "patients",
+    "appointments",
+    "prescriptions",
+    "medical_records",
+    "laboratory",
+    "pharmacy",
+    "billing",
+    "rooms",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +64,7 @@ ROOT_URLCONF = 'hospital.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        "DIRS": [BASE_DIR / "hospital" / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,9 +83,13 @@ WSGI_APPLICATION = 'hospital.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "hospital_management",
+        "USER": "root",
+        "PASSWORD": "magar501270",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
     }
 }
 
@@ -116,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beds</title>
+</head>
+<body>
+
+<h1>Hospital Beds</h1>
+
+{% if beds %}
+<table border="1">
+    <tr>
+        <th>Bed Number</th>
+        <th>Room</th>
+        <th>Room Type</th>
+        <th>Patient</th>
+        <th>Status</th>
+    </tr>
+
+    {% for bed in beds %}
+    <tr>
+        <td>{{ bed.bed_number }}</td>
+        <td>{{ bed.room.room_number }}</td>
+        <td>{{ bed.room.get_room_type_display }}</td>
+
+        <td>
+            {% if bed.patient %}
+                {{ bed.patient.user.username }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+
+        <td>
+            {% if bed.is_occupied %}
+                Occupied
+                <br>
+                <a href="{% url 'discharge_patient' bed.id %}">
+                    Discharge Patient
+                </a>
+            {% else %}
+                Available
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<p>No beds found.</p>
+{% endif %}
+
+<br>
+
+<a href="{% url 'room_list' %}">Back to Rooms</a>
+<br>
+
+<a href="{% url 'admit_patient' %}">Admit Patient</a>
+
+</body>
+</html>

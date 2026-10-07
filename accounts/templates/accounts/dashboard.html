@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Admin Dashboard</h1>
+
+<div class="card-container">
+
+    <div class="card">
+        <h3>Total Patients</h3>
+        <p>{{ total_patients }}</p>
+
+        <a href="{% url 'patient_list' %}" class="btn">
+            Manage Patients
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Total Doctors</h3>
+        <p>{{ total_doctors }}</p>
+
+        <a href="{% url 'doctor_list' %}" class="btn">
+            Manage Doctors
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Today's Appointments</h3>
+        <p>{{ today_appointments }}</p>
+
+        <a href="{% url 'appointment_list' %}" class="btn">
+            View Appointments
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Total Beds</h3>
+        <p>{{ total_beds }}</p>
+
+        <a href="{% url 'bed_list' %}" class="btn">
+            Manage Beds
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Available Beds</h3>
+        <p>{{ available_beds }}</p>
+
+        <a href="{% url 'bed_list' %}" class="btn">
+            View Beds
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Occupied Beds</h3>
+        <p>{{ occupied_beds }}</p>
+
+        <a href="{% url 'bed_list' %}" class="btn">
+            View Beds
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Total Revenue</h3>
+        <p>Rs. {{ total_revenue }}</p>
+
+        <a href="{% url 'billing_list' %}" class="btn">
+            View Billing
+        </a>
+    </div>
+
+    <div class="card">
+        <h3>Low Stock Medicines</h3>
+        <p>{{ low_stock_medicines }}</p>
+
+        <a href="{% url 'medicine_list' %}" class="btn">
+            Manage Pharmacy
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

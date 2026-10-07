@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patients</title>
+</head>
+<body>
+
+<h1>Patients</h1>
+
+{% for patient in patients %}
+    <p>{{ patient }}</p>
+{% empty %}
+    <p>No patients found.</p>
+{% endfor %}
+
+</body>
+</html>

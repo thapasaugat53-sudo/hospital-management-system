@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Bill</title>
+</head>
+
+<body>
+
+    <h1>Create Bill</h1>
+
+    <p>
+        <strong>Patient:</strong>
+        {{ appointment.patient.user.username }}
+    </p>
+
+    <p>
+        <strong>Doctor:</strong>
+        Dr. {{ appointment.doctor.user.username }}
+    </p>
+
+    <p>
+        <strong>Appointment:</strong>
+        #{{ appointment.id }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Create Bill
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'doctor_appointments' %}">
+        Back to Appointments
+    </a>
+
+</body>
+
+</html>
