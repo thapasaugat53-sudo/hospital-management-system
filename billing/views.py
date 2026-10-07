@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from accounts.decorators import patient_required, admin_required
+from accounts.decorators import patient_required, admin_required, receptionist_required
 from appointments.models import Appointment
 from .forms import BillForm
 from .models import Bill
 
 
-@login_required
+@receptionist_required
 def create_bill(request, appointment_id):
 
     appointment = get_object_or_404(

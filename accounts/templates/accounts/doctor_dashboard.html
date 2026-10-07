@@ -18,12 +18,21 @@
 
     <div class="card">
         <h3>Medical Records</h3>
-        <p>Manage patient medical records.</p>
+        <p>Manage patient medical records and consultations.</p>
+
+        <a href="{% url 'doctor_appointments' %}" class="btn">
+            Manage Records
+        </a>
     </div>
 
+    
     <div class="card">
-        <h3>Prescriptions</h3>
-        <p>Manage patient prescriptions.</p>
+        <h3>Laboratory Tests</h3>
+        <p>View and manage laboratory tests for your patients.</p>
+
+        <a href="{% url 'doctor_lab_tests' %}" class="btn">
+            View Laboratory Tests
+        </a>
     </div>
 
 </div>

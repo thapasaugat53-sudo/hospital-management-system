@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-
 from appointments.models import Appointment
 from .forms import MedicalRecordForm
-
+from accounts.decorators import patient_required
+from .models import MedicalRecord
 
 @login_required
 def consultation(request, appointment_id):
@@ -43,5 +43,23 @@ def consultation(request, appointment_id):
         {
             "form": form,
             "appointment": appointment,
+        }
+    )
+
+@patient_required
+def my_medical_history(request):
+
+    records = MedicalRecord.objects.filter(
+        patient=request.user.patient
+    ).select_related(
+        "doctor__user",
+        "appointment"
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "medical_records/my_medical_history.html",
+        {
+            "records": records
         }
     )
